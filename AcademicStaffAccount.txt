@@ -1,0 +1,14 @@
+2
+INFO_DATA:
+1-123456
+Nguyen Hoang Tien An,0,02/08/1983,8634513
+nhtan@fit.hcmus.edu.vn
+admin1
+Password: admin12345
+--------------------
+1-987654
+Huynh Thi Anh Thu,1,26/03/1986,1936542
+htathu@fit.hcmus.edu.vn
+admin2
+Password: admin98765
+--------------------
