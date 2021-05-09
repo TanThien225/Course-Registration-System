@@ -1,0 +1,30 @@
+7
+INfO_DATA:
+20120000  
+Nguyen Quynh Anh,1,12/07/2002,13942
+Password: anh123
+----------------
+20120001
+Ngo Quang Long,0,11/05/2002,15687
+Password: long456
+----------------
+20120002  
+Nguyen Tran Quang Nhat,0,03/04/2002,98531
+Password: 789
+----------------
+20120003  
+To Dinh Duy,0,12/08/2002,45328
+Password: 789
+----------------
+20120004
+Nguyen Thi Thanh Ngoc,1,02/04/2002,45682
+Password: 123
+----------------
+20120005
+Ha My Duyen,1,12/08/2002,45528
+Password: 123
+----------------
+20120005
+Huynh Thi Hue,1,03/06/2002,40000
+Password: 123
+----------------
