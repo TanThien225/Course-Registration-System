@@ -1,0 +1,14 @@
+3
+INfO_DATA:
+20120000  
+Nguyen Quynh Anh,1,12/07/2002,13942
+Password: anh123
+----------------
+20120123  
+Phan Mai Long,0,5/11/2002,45963
+Password: long456
+----------------
+20120665  
+Huynh Thao Chi,1,22/05/2002,51647
+Password: chi789
+----------------
