@@ -21,11 +21,12 @@ struct AcademicStaff
 
 	string Username;
 	string Password;
-};
+	};
 
 void OutputAStaff(AcademicStaff st);
 
 void ReadFileAStaff(AcademicStaff& st, fstream& File);
+
 
 
 
