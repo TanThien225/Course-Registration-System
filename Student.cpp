@@ -29,7 +29,7 @@ void ChangePassword(Student std)
 
 
 
-void OutputStudent(Student std)
+void OutputStudent(Student &std)
 {
 	std.StudentID = std.Username;
 	cout << "\n - Student ID: " << std.StudentID;
@@ -42,17 +42,11 @@ void OutputStudent(Student std)
 	else cout << "\n - Gender: Male";
 	cout << "\n - Date of Birth: " << std.DateofBirth;
 	cout << "\n - Social ID :  " << std.SocialID;
-	std.email = std.StudentID.insert(8,"@student.hcmus.edu.vn");
+	std.StudentID = remove_spaces(std.StudentID);
+	std.email = std.StudentID+ "@student.hcmus.edu.vn";
 	cout << "\n - Email :  " << std.email;
 }
 
-string remove_spaces(const string& s)
-{
-	int last = s.size() - 1;
-	while (last >= 0 && s[last] == ' ')
-		--last;
-	return s.substr(0, last + 1);
-}
 
 void ReadFileStudent(Student &std, fstream& File)
 {
