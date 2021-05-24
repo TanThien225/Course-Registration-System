@@ -10,59 +10,117 @@
 using namespace std;
 #pragma warning(disable: 4996)
 
-bool CheckSpecial(char c)
+struct ClassUni
 {
-	string Special = "!@#$%^&*()/:_+-=<>?,.";
-	for (int i = 0; i <=
-		Special.length(); i++)
-	{
-		if (c == Special[i])
-		{
-			return true;
-			break;
-		}
-	}
-	return false;
-}
-
-struct DateTime
-{
-	int Year, Month, Day, T_hour, T_min, T_sec;
+	string Name;
+	Student* Mem;//Array of student
+	int n;
 };
 
-void GetDateTime(DateTime &DT)
+struct NODE_Class
 {
-	time_t now = time(0);
-	tm* ltm = localtime(&now);
-	DT.Year = 1900 + ltm->tm_year;//tm_year year since 1900
-	DT.Month = 1 + ltm->tm_mon;
-	DT.Day = ltm->tm_mday;
-	DT.T_hour = 1 + ltm->tm_hour;
-	DT.T_min = 1 + ltm->tm_hour;
-	DT.T_sec = 1 + ltm->tm_sec;
+	ClassUni Data;
+	NODE_Class* pNext;
+};
+
+struct ListClass
+{
+	NODE_Class* pHead;
+	NODE_Class* pTail;
+};
+
+void PrintStudentInClass(ClassUni Cl)
+{
+	cout << "Name of Class: " << Cl.Name;
+	for (int i = 0; i < Cl.n; i++)
+	{
+		cout << "\n+ Student number " << i + 1;
+		OutputStudent(Cl.Mem[i]);
+		cout << endl;
+	}
 }
 
-void DisplayDateTime(DateTime DT)
+NODE_Class* initializeNodeClass(ClassUni Cl)
 {
-	cout << "\nYear: " << DT.Year << endl;
-	cout << "Month: " << DT.Month << endl;
-	cout << "Day: " << DT.Day << endl;
-	cout << "Time: " << DT.T_hour << ":";
-	cout << DT.T_min << ":";
-	cout << DT.T_sec << endl;
+	NODE_Class* p = new NODE_Class;
+	p->Data = Cl;
+	p->pNext = NULL;
+	return p;
 }
 
-void SettingDateTime(DateTime &DT)
+void addTailClass(ListClass& LCl, NODE_Class* p)
 {
-	cout << "Please enter Setting Date and Time.\n";
-	cout << "Enter Year: "; cin >> DT.Year;
-	cout << "Enter Month: "; cin >> DT.Month;
-	cout << "Enter Day: "; cin >> DT.Day;
-	cout << "Enter Hour Time: "; cin >> DT.T_hour;
-	cout << "Enter Minute Time:"; cin >> DT.T_min;
-	cout << "Enter second Time:"; cin >> DT.T_sec;
+	if (LCl.pHead == NULL)
+	{
+		LCl.pHead = LCl.pTail = p;
+	}
+	else {
+		LCl.pTail->pNext = p;
+		LCl.pTail = p;
+	}
 }
 
+void PrintListNameClass(ListClass LCl)
+{
+	if (LCl.pHead == NULL)
+	{
+		cout << " is EMPTY\n";
+	}
+	for (NODE_Class* p = LCl.pHead; p != NULL; p = p->pNext)
+	{
+		cout << " - Class: " << p->Data.Name << endl;
+	}
+	cout << "\n------------------\n";
+}
+
+//Get data from file input
+void Read1stYearClass()
+{
+	ClassUni FirstCls;
+	cout << "\n - Input Name of 1st year Class: ";
+	getline(cin, FirstCls.Name);
+
+	//FirstCls.Name = remove_spaces(FirstCls.Name);
+	string FileClass;
+	FileClass = FirstCls.Name + ".txt";
+	FileClass = remove_spaces(FileClass);
+	FileClass = "Class" + FileClass;//Ex: Class 20CTT1
+
+	string temp;
+	fstream Filein;
+
+	Filein.open(FileClass, ios::in | ios::app);
+	if (Filein.fail() == true)
+	{
+		cout << "\nError File !!.";
+	}
+	Filein >> FirstCls.n;
+	getline(Filein, temp);
+	getline(Filein, temp);
+	FirstCls.Mem = new Student[FirstCls.n];
+	for (int i = 0; i < FirstCls.n; i++)
+	{
+		ReadFileStudent(FirstCls.Mem[i], Filein);
+	}
+	Filein.close();
+}
+
+void MenuAcademicStaffMember()
+{
+	system("cls");
+	//Clear Console
+	int choice = -1;
+	//while (choice)
+	{
+		cout << "\t\t\t------------------Academic Staff Member HCMUS------------------\n";
+		cout << "\t\t\t 1. Create School Year. \n";
+		cout << "\t\t\t 2. Create Semester. \n";
+		cout << "\t\t\t 3. View List. \n";
+		cout << "\t\t\t 4. Process the Score. \n";
+		cout << "\n\n\t\t\t 0. Close \n";
+		cout << "\t\t\t\nEnter choice: ";
+	}
+}
 
 string EnterPassword()
 {
@@ -98,6 +156,9 @@ string EnterPassword()
 	
 	return Pass;
 }
+
+
+
 
 
 int Login(string username, string password, AcademicStaff AS[], Student std[])
@@ -177,7 +238,6 @@ int Login(string username, string password, AcademicStaff AS[], Student std[])
 
 }
 
-
 void ClearScreen()
 {
 	cout << string(100, '\n');
@@ -187,7 +247,7 @@ void MenuSTART()
 	int choice = -1;
 	DateTime DT;
 	GetDateTime(DT);
-
+	
 	Student STD[3];
 	AcademicStaff AS[2];
 
@@ -215,6 +275,7 @@ void MenuSTART()
 			if (Check == 1)
 			{
 				cout << "\n===============MENU ADMIN===============\n";
+				MenuAcademicStaffMember();
 			}
 			else if (Check == 0) {
 				cout << "\n===============MENU STUDENT===============\n";
@@ -229,7 +290,8 @@ void MenuSTART()
 		case 2:
 		{
 			SettingDateTime(DT);
-			ClearScreen();
+			system("cls");//Clear Console
+			//ClearScreen();
 			break;
 		}
 		}
