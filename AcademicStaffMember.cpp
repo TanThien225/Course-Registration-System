@@ -32,3 +32,7 @@ void ReadFileAStaff(AcademicStaff& st, fstream& File)
 	st.Password = SplitPassword(st.Password);
 	getline(File, temp);
 }
+
+
+
+
