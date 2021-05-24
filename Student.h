@@ -24,11 +24,11 @@ struct Student
 	string Password;
 };
 
-void OutputStudent(Student std);
+void OutputStudent(Student &std);
 
 void ReadFileStudent(Student &std, fstream& File);
 
-string remove_spaces(const string& s);
+
 
 
 
