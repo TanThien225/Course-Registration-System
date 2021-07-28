@@ -5,6 +5,7 @@
 
 #include<iostream>
 #include<string>
+#include<iomanip>
 #include<fstream>
 using namespace std;
 #pragma warning(disable: 4996)
@@ -23,6 +24,11 @@ struct DateTime
 	int Year, Month, Day, T_hour, T_min, T_sec;
 };
 
+struct Date
+{
+	int Year, Month, Day;
+};
+
 void GetDateTime(DateTime& DT);
 
 void DisplayDateTime(DateTime DT);
@@ -30,6 +36,11 @@ void DisplayDateTime(DateTime DT);
 void SettingDateTime(DateTime& DT);
 
 string remove_spaces(const string& s);
+
+void inputDate(Date& D);
+void outputDate(Date D);
+
+bool afterDate(Date a, Date b);
 
 #endif
 
