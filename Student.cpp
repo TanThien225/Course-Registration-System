@@ -43,9 +43,26 @@ void OutputStudent(Student &std)
 	cout << "\n - Date of Birth: " << std.DateofBirth;
 	cout << "\n - Social ID :  " << std.SocialID;
 	std.StudentID = remove_spaces(std.StudentID);
-	std.email = std.StudentID+ "@student.hcmus.edu.vn";
+	std.email = std.StudentID + "@student.hcmus.edu.vn";
 	cout << "\n - Email :  " << std.email;
 }
+
+void OutputStdinLine(Student& std)
+{
+	std.StudentID = std.Username;
+	std.StudentID = remove_spaces(std.StudentID);
+	cout << setw(10) << left << std.StudentID << "\t";
+	cout << setw(10) << left << std.FirstName << "\t";
+	cout << setw(18) << left << std.LastName << "\t";
+	if (std.Gender == 1)
+	{
+		cout << setw(10) << left << "Female" << "\t";
+	}
+	else cout << setw(10) << left << "Male" << "\t";
+	cout << setw(12) << left << std.DateofBirth << "\t";
+	cout << setw(10) << left << std.SocialID<< "\t";
+}
+
 
 
 void ReadFileStudent(Student &std, fstream& File)
