@@ -14,9 +14,9 @@ struct AcademicStaff
 	string IDStaff;
 	string FirstName;
 	string LastName;
-	int Gender;
+	int Gender{};
 	string DateofBirth;
-	int SocialID;
+	int SocialID{};
 	string email;
 
 	string Username;
