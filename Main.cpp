@@ -4,23 +4,24 @@
 #include<string>
 #include<Windows.h>
 #include<fstream>
-#include"Student.h";
-#include"AcademicStaffMember.h";
-#include"GeneralFunc.h";
+#include"Student.h"
+#include"AcademicStaffMember.h"
+#include"GeneralFunc.h"
+#include"Course.h";
 using namespace std;
 #pragma warning(disable: 4996)
 
 struct ClassUni
 {
 	string Name;
-	Student* Mem;//Array of student
-	int n;
+	Student* Mem{};//Array of student
+	int n{};
 };
 
 struct NODE_Class
 {
 	ClassUni Data;
-	NODE_Class* pNext;
+	NODE_Class* pNext{};
 };
 
 struct ListClass
@@ -29,15 +30,26 @@ struct ListClass
 	NODE_Class* pTail;
 };
 
+
 void PrintStudentInClass(ClassUni Cl)
 {
-	cout << "Name of Class: " << Cl.Name;
+	cout << "  - Name of Class: " << Cl.Name << endl;
+	cout <<"\n"<< setw(3) << left << "No" << "\t" << setw(10) << left << "StudentID" << "\t" << setw(10) << left
+		<< "First Name" << "\t" << setw(18) << left << "Last Name" << "\t" << setw(10) << left
+		<< "Gender" << "\t" << setw(12) << left << "Date of Birth" << "\t" << setw(10) << left
+		<< "Social ID" << endl;
+	for (int i = 0; i < 110; i++)
+	{
+		cout << "=";
+	}
+	cout << endl;
 	for (int i = 0; i < Cl.n; i++)
 	{
-		cout << "\n+ Student number " << i + 1;
-		OutputStudent(Cl.Mem[i]);
+		cout << left << setw(3) << i + 1 << "\t";
+		OutputStdinLine(Cl.Mem[i]);
 		cout << endl;
 	}
+	cout << endl;
 }
 
 NODE_Class* initializeNodeClass(ClassUni Cl)
@@ -74,9 +86,8 @@ void PrintListNameClass(ListClass LCl)
 }
 
 //Get data from file input
-void Read1stYearClass()
+bool Read1stYearClass(ClassUni &FirstCls)
 {
-	ClassUni FirstCls;
 	cout << "\n - Input Name of 1st year Class: ";
 	getline(cin, FirstCls.Name);
 
@@ -89,10 +100,11 @@ void Read1stYearClass()
 	string temp;
 	fstream Filein;
 
-	Filein.open(FileClass, ios::in | ios::app);
+	Filein.open(FileClass, ios::in);
 	if (Filein.fail() == true)
 	{
-		cout << "\nError File !!.";
+		cout << "\nError File !!.\n";
+		return false;
 	}
 	Filein >> FirstCls.n;
 	getline(Filein, temp);
@@ -103,22 +115,196 @@ void Read1stYearClass()
 		ReadFileStudent(FirstCls.Mem[i], Filein);
 	}
 	Filein.close();
+	return true;
+	
 }
 
-void MenuAcademicStaffMember()
+
+void MenuView(ListClass L)
 {
 	system("cls");
 	//Clear Console
 	int choice = -1;
-	//while (choice)
+	while (choice)
+	{
+		cout << "\t\t\t------------------Academic Staff Member HCMUS------------------\n";
+		cout << "\t\t\t 1. View list of classes. \n";
+		cout << "\t\t\t 2. View list of students in a class (for example, 20APCS1...) \n";
+		cout << "\t\t\t 3. View list of courses. \n";
+		cout << "\t\t\t 4. View list of students in a course \n";
+		cout << "\n\n\t\t\t 0. Close \n";
+		cout << "\t\t\t\nEnter choice: ";
+		cin >> choice;
+		switch (choice)
+		{
+		case 0:
+		{
+			break;
+		}
+		case 1:
+		{
+			system("cls");
+			PrintListNameClass(L);
+			break;
+		}
+		case 2:
+		{
+			system("cls");
+			string name;
+			while (getchar() != '\n');
+			cout << "\t\t\t 2. View list of students in a class (for example, 20APCS1 ...) \n";
+			cout << "\nInput Name class: ";
+			getline(cin, name);
+			if (L.pHead == NULL)
+			{
+				cout << "\nList of class is Empty !\n";
+			} 
+			else{
+				for (NODE_Class* p = L.pHead; p != NULL; p = p->pNext)
+				{
+					if (strcmp(p->Data.Name.c_str(), name.c_str()) == 0)
+					{
+						PrintStudentInClass(p->Data);
+					}
+				}
+			}
+			break;
+		}
+		default:
+			break;
+		}
+	}
+}
+
+void MenuAcademicStaffMember(ListClass L, DateTime& date, AcademicStaff main)
+{
+	system("cls");
+	//Clear Console
+	int choice = -1;
+	while (choice)
 	{
 		cout << "\t\t\t------------------Academic Staff Member HCMUS------------------\n";
 		cout << "\t\t\t 1. Create School Year. \n";
 		cout << "\t\t\t 2. Create Semester. \n";
 		cout << "\t\t\t 3. View List. \n";
 		cout << "\t\t\t 4. Process the Score. \n";
-		cout << "\n\n\t\t\t 0. Close \n";
+		cout << "\n\t\t\t 6. View Profile. \n";
+
+		cout << "\n\n\t\t\t 0. Log out \n";
 		cout << "\t\t\t\nEnter choice: ";
+		cin >> choice;
+		switch (choice)
+		{
+		case 0:
+		{
+			break;
+		}
+		case 1:
+		{
+			system("cls");
+			if (date.Month == 9)
+			{
+				cout << "\nCreate school year sucessfully !!\n";
+			}
+			else
+			{
+				cout << "\nThis month is not September to create school year. \n";
+			}
+			break;
+		}
+		case 2:
+		{
+			ClassUni a;
+			while (getchar() != '\n');
+			bool check = Read1stYearClass(a);
+			if (check == true) 
+			{
+				NODE_Class* p = initializeNodeClass(a);
+				addTailClass(L, p);
+			}
+			break;
+		}
+		case 3:
+		{
+			MenuView(L);
+			break;
+		}
+		case 4:
+		{
+			system("cls");
+			Semester S;
+			createSemester(S);
+			MenuSemester(S);
+			break;
+		}
+		case 6:
+		{
+			system("cls");
+			OutputAStaff(main);
+			cout << endl;
+			break;
+		}
+		default:
+			break;
+		}
+	}
+}
+
+
+void MenuStudent(Student main)
+{
+	system("cls");
+	//Clear Console
+	int choice = -1;
+	while (choice)
+	{
+		cout << "\t\t\t------------------Academic Staff Member HCMUS------------------\n";
+		cout << "\t\t\t 1. XXXXXXX. \n";
+		cout << "\t\t\t 2. XXXXXXX. \n";
+		cout << "\t\t\t 3. XXXXXXX. \n";
+		cout << "\t\t\t 4. XXXXXXX. \n";
+		cout << "\n\t\t\t 6. View Profile. \n";
+
+		cout << "\n\n\t\t\t 0. Log out \n";
+		cout << "\t\t\t\nEnter choice: ";
+		cin >> choice;
+		switch (choice)
+		{
+		case 0:
+		{
+			break;
+		}
+		case 1:
+		{
+			system("cls");
+			break;
+		}
+		case 2:
+		{
+			
+			break;
+		}
+		case 3:
+		{
+			
+			break;
+		}
+		case 4:
+		{
+			system("cls");
+
+			break;
+		}
+		case 6:
+		{
+			system("cls");
+			OutputStudent(main);
+			cout << endl;
+			break;
+		}
+		default:
+			break;
+		}
 	}
 }
 
@@ -158,10 +344,7 @@ string EnterPassword()
 }
 
 
-
-
-
-int Login(string username, string password, AcademicStaff AS[], Student std[])
+int Login(string& username, string& password, AcademicStaff AS[], Student std[])
 {
 	int check = 0;
 	int COUNT = 0;
@@ -238,18 +421,17 @@ int Login(string username, string password, AcademicStaff AS[], Student std[])
 
 }
 
-void ClearScreen()
-{
-	cout << string(100, '\n');
-}
+
 void MenuSTART()
 {
+	ListClass L;
+	L.pHead = L.pTail = NULL;
 	int choice = -1;
 	DateTime DT;
 	GetDateTime(DT);
 	
-	Student STD[3];
-	AcademicStaff AS[2];
+	Student accountSTD[3];
+	AcademicStaff accountAS[2];
 
 	while (choice)
 	{
@@ -271,27 +453,44 @@ void MenuSTART()
 		{
 			string User;
 			string Pass;
-			int Check = Login(User, Pass, AS, STD);
+			int Check = Login(User, Pass, accountAS, accountSTD);
 			if (Check == 1)
 			{
+				AcademicStaff MAIN;
 				cout << "\n===============MENU ADMIN===============\n";
-				MenuAcademicStaffMember();
+				for (int i = 0; i < 2; i++)
+				{
+					if (accountAS[i].Username == User)
+					{
+						MAIN = accountAS[i];
+					}
+				}
+				MenuAcademicStaffMember(L,DT, MAIN);
 			}
-			else if (Check == 0) {
+			else if (Check == 0)
+			{
+				Student MAIN;
 				cout << "\n===============MENU STUDENT===============\n";
+				for (int i = 0; i < 3; i++)
+				{
+					if (accountSTD[i].Username == User)
+					{
+						MAIN = accountSTD[i];
+					}
+				}
+				MenuStudent(MAIN);
 			}
 			else {
 				cout << "\nIncorrect PIN too many times. To try again, restart your device.\n";
 				exit(0);
 			}
-			ClearScreen();
+			system("cls");
 			break;
 		}
 		case 2:
 		{
 			SettingDateTime(DT);
-			system("cls");//Clear Console
-			//ClearScreen();
+			system("cls");
 			break;
 		}
 		}
@@ -302,6 +501,16 @@ void MenuSTART()
 int main()
 {
 	MenuSTART();
+	
+	//ClassUni x = Read1stYearClass();
+	//PrintStudentInClass(x);
+
+	/*
+	Course KTLT;
+	inputCourse(KTLT);
+	cout << endl;
+	outputCourse(KTLT);
+	*/
 
 	return 0;
 }
