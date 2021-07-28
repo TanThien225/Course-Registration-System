@@ -14,9 +14,9 @@ struct Student
 	string StudentID;
 	string FirstName;
 	string LastName;
-	int Gender;//1: Female  0:male 
+	int Gender{};//1: Female  0:male 
 	string DateofBirth;
-	int SocialID;
+	int SocialID{};
 	string email;
 	string Class;
 
@@ -25,6 +25,8 @@ struct Student
 };
 
 void OutputStudent(Student &std);
+
+void OutputStdinLine(Student& std);
 
 void ReadFileStudent(Student &std, fstream& File);
 
