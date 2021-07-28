@@ -73,7 +73,7 @@ void GetDateTime(DateTime& DT)
 	DT.T_hour = 1 + ltm->tm_hour;
 	DT.T_min = 1 + ltm->tm_hour;
 	DT.T_sec = 1 + ltm->tm_sec;
-}
+}	
 
 void DisplayDateTime(DateTime DT)
 {
@@ -94,4 +94,42 @@ void SettingDateTime(DateTime& DT)
 	cout << "Enter Hour Time: "; cin >> DT.T_hour;
 	cout << "Enter Minute Time:"; cin >> DT.T_min;
 	cout << "Enter second Time:"; cin >> DT.T_sec;
+}
+
+void inputDate(Date& D)
+{
+	cout << "Input Year: ";
+	cin >> D.Year;
+	cout << "Input Month: ";
+	cin >> D.Month;
+	cout << "Input Day: ";
+	cin >> D.Day;
+}
+
+void outputDate(Date D)
+{
+	cout << D.Day << "/" << D.Month << "/" << D.Year;
+}
+
+bool afterDate(Date a, Date b)// if Date a after day b return true 
+{
+	if (a.Year > b.Year)
+	{
+		return true;
+	}
+	else if (a.Year == b.Year)
+	{
+		if (a.Month > b.Month)
+		{
+			return true;
+		}
+		else if (a.Day > b.Day)
+		{
+			return true;
+		}
+		else if (a.Day == b.Day) {
+			return true;
+		}
+	}
+	return false;
 }
