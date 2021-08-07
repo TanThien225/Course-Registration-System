@@ -40,6 +40,10 @@ string remove_spaces(const string& s);
 void inputDate(Date& D);
 void outputDate(Date D);
 
+//Get date from date and time
+Date getDate(DateTime DT);
+
+// if Date a after day b return true 
 bool afterDate(Date a, Date b);
 
 #endif
