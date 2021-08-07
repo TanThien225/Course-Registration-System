@@ -16,10 +16,21 @@ void SplitName(string ex, string& FirstName, string& LastName)
 
 string remove_spaces(const string& s)
 {
-	int last = s.size() - 1;
-	while (last >= 0 && s[last] == ' ')
-		--last;
-	return s.substr(0, last + 1);
+	bool check = false;
+	for (int i = 0; i < s.length(); i++)
+	{
+		if (s[i] == ' ')
+		{
+			check = true;
+		}
+	}
+	if (check == true) {
+		int last = s.size() - 1;
+		while (last >= 0 && s[last] == ' ')
+			--last;
+		return s.substr(0, last + 1);
+	}
+	else return s;
 }
 
 string SplitPassword(string str)
@@ -111,6 +122,16 @@ void outputDate(Date D)
 	cout << D.Day << "/" << D.Month << "/" << D.Year;
 }
 
+
+Date getDate(DateTime DT)
+{
+	Date d;
+	d.Day = DT.Day;
+	d.Month = DT.Month;
+	d.Year = DT.Year;
+	return d;
+}
+
 bool afterDate(Date a, Date b)// if Date a after day b return true 
 {
 	if (a.Year > b.Year)
@@ -123,12 +144,12 @@ bool afterDate(Date a, Date b)// if Date a after day b return true
 		{
 			return true;
 		}
-		else if (a.Day > b.Day)
+		else if (a.Month == b.Month)
 		{
-			return true;
-		}
-		else if (a.Day == b.Day) {
-			return true;
+			if (a.Day > b.Day)
+			{
+				return true;
+			}
 		}
 	}
 	return false;
