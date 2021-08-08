@@ -1,0 +1,13 @@
+10
+1,20124000,Tran Diem Tu,5,5,5,0
+2,20120000,Nguyen Quynh Anh,9,9,9,0
+3,20120123,Phan Mai Long,5.4,6,4,0
+4,20124000,Pham Ngoc Thanh Thao,8.6,8,10,0
+5,20124000,Vu Ngoc Minh Trung,7.5,8,6,0
+6,20124000,Thiem Le Tra Mi,10,9.5,9,1
+7,20124000,Huynh Minh Quoc Nhat,8.1,9,6,0
+8,20120665,Huynh Thao Chi,7,7,7,0
+9,20124000,Nguyen Le Thien Tan,10,10,10,0
+10,20124000,Duong Manh Cuong,6,6,6,0
+
+
