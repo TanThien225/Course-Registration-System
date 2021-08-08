@@ -1,8 +1,11 @@
 #pragma once
+#ifndef COURSE
+#define COURSE
+
 #include<iostream>
 #include<string>
 #include<fstream>
-#include"Student.h"
+//#include"Student.h"
 #include"AcademicStaffMember.h"
 #include"GeneralFunc.h"
 using namespace std;
@@ -23,7 +26,6 @@ struct Course
 	int numCredit; // So tin chi
 	int maximumStudent; // default: 50 the maximum number of students in the course
 	Session Sessions[2];  //  A course will be taught in 2 sessions in a week
-	//Student* Mem;
 };
 
 void inputSession(Session& S);
@@ -42,12 +44,19 @@ struct NODE_Course
 struct Semester
 {
 	int Type;
-	int SchoolYear;
 	Date start;
 	Date end;
 
 	NODE_Course* pHead;
 	NODE_Course* pTail;
+};
+
+struct RegisSession
+{
+	//Check whether the course Registration Session is created
+	bool createdStat;
+	Date startD;
+	Date endD;
 };
 
 void createSemester(Semester& semester);
@@ -56,7 +65,41 @@ void addCourse(Semester& semester, Course course);
 
 void printSemesterCourses(Semester semester);
 
-void MenuSemester(Semester& semester);
+void MenuSemester(Semester& semester, RegisSession& regis);
 
 bool conflictSession(Session A, Session B);
 
+//return true if  If 2 sessions of the A course are conflicted with existing B sessions
+bool conflictCourse(Course A, Course B);
+
+void deleteHeadCourse(Semester& semester);
+
+void deleteTailCourse(Semester& semester);
+
+//delete course by id
+void deleteCoursebyID(Semester& semester, string idCourseDEL);
+
+//delete course by name
+void deleteCoursebyName(Semester& semester, string NameCourseDEL);
+
+//delete course by id or name (optional)
+void deleteCourse(Semester& semester);
+
+//Check if the course is in this semeter by ID
+bool checkCoursebyID(Semester semester, string idCourse);
+
+//Check if the course is in this semeter by name
+bool checkCoursebyName(Semester semester, string NameCourse);
+
+//return course find by id or name
+NODE_Course* findCourse(Semester& semester);
+
+//update course
+void updateCourse(Semester& semester, NODE_Course* update);
+
+//find the course that student want to enroll 
+bool findCourseEnrollment(Semester& semester, Course& enrollCourse);
+
+
+
+#endif
