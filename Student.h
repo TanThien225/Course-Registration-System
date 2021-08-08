@@ -5,7 +5,9 @@
 #include<iostream>
 #include<string>
 #include<fstream>
+#include<vector>
 #include"GeneralFunc.h"
+#include"Course.h"
 using namespace std;
 #pragma warning(disable: 4996)
 
@@ -22,7 +24,11 @@ struct Student
 
 	string Username;
 	string Password;
+	vector<Course> ListStudy;
+	int enrollStat = 0;
 };
+
+void InputStudent(Student& std);
 
 void OutputStudent(Student &std);
 
