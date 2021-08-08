@@ -26,7 +26,24 @@ void ChangePassword(Student std)
 
 }
 
-
+void InputStudent(Student& std)
+{
+	cout << " - Input Student ID: ";
+	cin >> std.Username;
+	std.Username = std.StudentID;
+	while (getchar() != '\n');
+	cout << " - Input First Name of the Student: ";
+	getline(cin, std.FirstName);
+	cout << " - Input Last Name of the Student: ";
+	getline(cin, std.LastName);
+	cout << " - Choose Gender of the Student(1: Female, 0: Male): ";
+	cin >> std.Gender;
+	while (getchar() != '\n');
+	cout << " - Input Date of Birth of the Student(DD/MM/YYYY): ";
+	getline(cin, std.DateofBirth);
+	cout << " - Input Student Social ID: ";
+	cin >> std.SocialID;
+}
 
 
 void OutputStudent(Student &std)
@@ -50,7 +67,7 @@ void OutputStudent(Student &std)
 void OutputStdinLine(Student& std)
 {
 	std.StudentID = std.Username;
-	std.StudentID = remove_spaces(std.StudentID);
+	//std.StudentID = remove_spaces(std.StudentID);
 	cout << setw(10) << left << std.StudentID << "\t";
 	cout << setw(10) << left << std.FirstName << "\t";
 	cout << setw(18) << left << std.LastName << "\t";
